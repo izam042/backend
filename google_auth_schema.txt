@@ -1,0 +1,23 @@
+DATABASE SCHEMA UPDATE FOR GOOGLE AUTHENTICATION
+--------------------------------------------
+
+To support Google authentication in the ShelfSwap application, you need to modify the users table to add an 'auth_provider' column that tracks how the user authenticated.
+
+1. Execute the following SQL command:
+
+```sql
+ALTER TABLE users ADD COLUMN auth_provider VARCHAR(20) DEFAULT 'email';
+```
+
+2. This column will store values like:
+   - 'email' for traditional email/password authentication
+   - 'google' for Google Sign-In accounts
+
+3. Update the auth.js route to handle Google authentication (already done)
+
+4. Make sure the Google client ID is properly configured in login.html and register.html (already done)
+
+For full production implementation, you would also:
+1. Install the Google Auth Library: `npm install google-auth-library`
+2. Add proper token verification in the /api/auth/google route 
+3. Add Google Client ID to environment variables 
