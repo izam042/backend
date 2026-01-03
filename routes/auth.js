@@ -10,9 +10,7 @@ const { OAuth2Client } = require('google-auth-library');
 // Initialize Google OAuth client
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// @route   POST /api/auth/register
-// @desc    Register a new user
-// @access  Public
+
 router.post('/register', [
   body('email').isEmail().withMessage('Please enter a valid email'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
@@ -33,7 +31,7 @@ router.post('/register', [
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
